@@ -31,7 +31,3 @@ async function dataBaseConnect() {
 }
 
 dataBaseConnect();
-// const title = "book fare";
-// const description = "this is test push";
-
-// const res = await addNoteData(title, description);
