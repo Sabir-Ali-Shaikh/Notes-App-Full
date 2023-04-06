@@ -1,0 +1,134 @@
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.hide {
+  display: none;
+  transition: 0.2s linear;
+}
+
+.icon {
+  width: 10%;
+}
+
+.mod-hide {
+  display: none;
+  transition: 0.2s linear;
+}
+
+.prev-notes {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.jumbotron {
+  background-image: radial-gradient(
+    circle 926px at 0.4% 2%,
+    rgba(243, 170, 81, 1) 100%,
+    rgba(255, 255, 255, 1) 10.2%,
+    rgb(228, 228, 228) 0.2%
+  );
+}
+
+.delete {
+  background: #ff4742;
+  border: 0;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #ffffff;
+  outline: 0;
+  padding: 12px 14px;
+}
+
+.delete:hover,
+.delete:active {
+  color: #111111;
+  background: #e01710;
+}
+
+.modify {
+  background: #72f705;
+  border: 0;
+  color: #111111;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  outline: 0;
+  padding: 12px 14px;
+}
+
+.modify:hover,
+.modify:active {
+  color: #000000;
+  background: #63c910;
+}
+
+.prev-notes div {
+  padding-top: 1.5rem;
+}
+
+.hide-small {
+  display: none !important;
+}
+
+.prev-notes div p {
+  text-align: start !important;
+  overflow: scroll !important;
+  height: 5vh;
+  /* font-size: 1.5rem !important; */
+}
+
+.prev-notes div h4 {
+  text-align: start;
+}
+
+.added-note {
+  text-align: center;
+  margin: auto;
+  background-color: #e4e3e3;
+  padding: 2rem;
+  border-bottom: 1px solid black;
+  margin-bottom: 10px;
+}
+
+.added-note button {
+  margin-left: 1rem;
+}
+
+@media (min-width: 800px) {
+  .prev-notes div {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+  }
+
+  .hide-small {
+    display: flex !important;
+    font-size: 16px !important;
+  }
+
+  .prev-notes div p {
+    text-align: start;
+    overflow: scroll;
+    width: 30%;
+    height: 15vh;
+  }
+
+  .added-note {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .prev-notes div h4 {
+    text-align: start;
+    overflow: scroll;
+    width: 30%;
+  }
+
+  .added-note button {
+    gap: 30%;
+  }
+}
