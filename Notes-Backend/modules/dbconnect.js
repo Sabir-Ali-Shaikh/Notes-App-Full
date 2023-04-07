@@ -1,4 +1,4 @@
-import { config } from "./config.js";
+import { config } from "../config.js";
 import mongoose from "mongoose";
 
 export async function dataBaseConnect() {
