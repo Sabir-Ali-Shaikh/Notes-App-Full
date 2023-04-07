@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { dataBaseConnect } from "./modules/dbconnect.js";
 import express, { Router } from "express";
 import route from "./modules/route.js";
 import cors from "cors";
@@ -13,21 +13,5 @@ app.use("/", route);
 app.listen(port, () => {
   console.log(`Server Created and listening on port ${port}`);
 });
-
-async function dataBaseConnect() {
-  await mongoose
-    .connect(
-      `mongodb+srv://sabir:1234@cluster0.wkoexdd.mongodb.net/noteapp?retryWrites=true&w=majority`,
-      {
-        useNewUrlParser: true,
-      }
-    )
-    .then(() => {
-      console.log("Database  connected");
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
 
 dataBaseConnect();

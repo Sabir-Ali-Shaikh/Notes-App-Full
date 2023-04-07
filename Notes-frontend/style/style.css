@@ -14,6 +14,13 @@ body {
   text-align: center;
 }
 
+.confim-delete {
+  height: 10rem;
+  width: 30%;
+  background-color: white;
+  padding: 1.7rem;
+}
+
 .add-alert {
   /* color: green;
   border: green; */
@@ -149,6 +156,10 @@ body {
 
 .added-note button {
   margin-left: 1rem;
+}
+
+.hide-small {
+  display: none;
 }
 
 @media (min-width: 800px) {

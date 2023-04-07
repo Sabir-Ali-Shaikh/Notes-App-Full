@@ -7,6 +7,9 @@ let cancelBtn = document.querySelector(".Cancel");
 let modSaveBtn = document.querySelector(".subModify");
 let modCancle = document.querySelector(".mod-Cancel");
 let alertMsg = document.querySelector(".succes-msg");
+let delConfirm = document.querySelector(".del-confirm");
+let delPopUp = document.querySelector(".confim-delete");
+let delpopCancle = document.querySelector(".del-Cancel");
 
 newBtn.addEventListener("click", function () {
   modForm.classList.add("hide");
@@ -23,6 +26,11 @@ cancelBtn.addEventListener("click", function (e) {
   selectForm.classList.toggle("hide");
   form.title.value = "";
   form.description.value = "";
+});
+
+delpopCancle.addEventListener("click", function () {
+  console.log("hi");
+  delPopUp.classList.add("hide");
 });
 
 // Function To Fetch Notes From Database
@@ -57,7 +65,7 @@ function showNotes(d) {
     });
   } else {
     nextNote.innerHTML = `Ops! Your Notes Are Empty!!!! <br>
-    WRITE A NEW NODE`;
+    WRITE A NEW NOTE`;
     nextNote.classList.add("empty-note");
   }
 }
@@ -108,7 +116,6 @@ subNote.addEventListener("click", (e) => {
         nextNote.innerHTML = "";
         selectForm.classList.toggle("hide");
         alertPing();
-
       });
   } else {
     alert("Fill the form Correctly");
@@ -118,29 +125,34 @@ subNote.addEventListener("click", (e) => {
 // Api For Deleting Selected Notes
 
 function deleteNotes(note, data) {
-  note.querySelector(".delete").addEventListener("click", (e) => {
-    console.log(e.target.classList);
-    fetch("http://localhost:5000/delete", {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
-        id: data._id,
-      }),
-    })
-      .then((res) => {
-        console.log("data deleted", res);
-        return res.json();
+  let delShowbtn = note.querySelector(".delete");
+  delShowbtn.addEventListener("click", function () {
+    delPopUp.classList.toggle("hide");
+    delConfirm.addEventListener("click", (e) => {
+      console.log(e.target.classList);
+      fetch("http://localhost:5000/delete", {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({
+          id: data._id,
+        }),
       })
-      .then((data) => {
-        console.log(data.message);
-        alertMsg.classList.toggle("hide");
-        alertMsg.classList.toggle("del-alert");
-        alertMsg.textContent = data.message;
-        nextNote.innerHTML = "";
-        alertPing();
-      });
+        .then((res) => {
+          console.log("data deleted", res);
+          return res.json();
+        })
+        .then((data) => {
+          delPopUp.classList.add("hide");
+          console.log(data.message);
+          alertMsg.classList.toggle("hide");
+          alertMsg.classList.toggle("del-alert");
+          alertMsg.textContent = data.message;
+          nextNote.innerHTML = "";
+          alertPing();
+        });
+    });
   });
 }
 
