@@ -109,7 +109,6 @@ subNote.addEventListener("click", (e) => {
         selectForm.classList.toggle("hide");
         alertPing();
 
-        // window.location.reload();
       });
   } else {
     alert("Fill the form Correctly");
@@ -141,13 +140,6 @@ function deleteNotes(note, data) {
         alertMsg.textContent = data.message;
         nextNote.innerHTML = "";
         alertPing();
-        // setTimeout(() => {
-        //   alertMsg.style.transform = "translateX(-300%)";
-        //   alertMsg.style.transition = "all .5s ease-in";
-        // }, 2000);
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 3000);
       });
   });
 }
