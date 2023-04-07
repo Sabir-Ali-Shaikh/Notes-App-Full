@@ -1,6 +1,53 @@
 body {
   margin: 0 !important;
   padding: 0 !important;
+  background: #005f73 !important;
+}
+
+.empty-note {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  color: #0a9396;
+  padding: 10%;
+  text-align: center;
+}
+
+.add-alert {
+  color: green;
+  border: green;
+}
+.mod-alert {
+  color: rgb(255, 196, 0);
+  border: rgb(255, 196, 0);
+}
+.del-alert {
+  color: red;
+  border: red;
+}
+
+.succes-msg {
+  background-color: #ffffff;
+  transform: translateX(-20%);
+  top: 20px;
+  height: 5rem;
+  width: 15rem;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-size: 28px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  box-shadow: 0px 0px 4px 0px;
+}
+
+.btn-color {
+  background: #bfd200 !important;
+}
+
+.btn-color:hover {
+  background: #80b918 !important;
 }
 
 .hide {
@@ -10,11 +57,8 @@ body {
 
 .icon {
   width: 10%;
-}
-
-.mod-hide {
-  display: none;
-  transition: 0.2s linear;
+  /* filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
+    hue-rotate(93deg) brightness(103%) contrast(103%); */
 }
 
 .prev-notes {
@@ -22,17 +66,19 @@ body {
   flex-direction: column-reverse;
 }
 
-.jumbotron {
+.bg-top {
   background-image: radial-gradient(
     circle 926px at 0.4% 2%,
     rgba(243, 170, 81, 1) 100%,
-    rgba(255, 255, 255, 1) 10.2%,
-    rgb(228, 228, 228) 0.2%
+    #177e89 10.2%,
+    #177e89 0.2%
   );
+
+  padding: 2rem;
 }
 
 .delete {
-  background: #ff4742;
+  background: #d00000;
   border: 0;
   border-radius: 6px;
   box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
@@ -49,7 +95,7 @@ body {
 }
 
 .modify {
-  background: #72f705;
+  background: #ee9b00;
   border: 0;
   color: #111111;
   border-radius: 6px;
@@ -61,16 +107,12 @@ body {
 
 .modify:hover,
 .modify:active {
-  color: #000000;
-  background: #63c910;
+  color: #ffffff;
+  background: #f8ae24;
 }
 
 .prev-notes div {
   padding-top: 1.5rem;
-}
-
-.hide-small {
-  display: none !important;
 }
 
 .prev-notes div p {
@@ -87,10 +129,12 @@ body {
 .added-note {
   text-align: center;
   margin: auto;
-  background-color: #e4e3e3;
+  background-color: #0a9396;
+  color: white;
   padding: 2rem;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
+  width: 100%;
 }
 
 .added-note button {
@@ -98,6 +142,22 @@ body {
 }
 
 @media (min-width: 800px) {
+  @keyframes successtransform {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-90%);
+    }
+  }
+  .succes-msg {
+    transform: translateX(-90%);
+    /* left: 30%; */
+    width: 30rem;
+    margin-top: 1.3rem;
+    animation: successtransform 1s 1;
+  }
+
   .prev-notes div {
     display: flex;
     justify-content: space-between;

@@ -6,6 +6,7 @@ let nextNote = document.querySelector(".prev-notes");
 let cancelBtn = document.querySelector(".Cancel");
 let modSaveBtn = document.querySelector(".subModify");
 let modCancle = document.querySelector(".mod-Cancel");
+let alertMsg = document.querySelector(".succes-msg");
 
 newBtn.addEventListener("click", function () {
   modForm.classList.add("hide");
@@ -14,7 +15,7 @@ newBtn.addEventListener("click", function () {
 
 modCancle.addEventListener("click", function (e) {
   e.preventDefault();
-  modForm.classList.toggle("mod-hide");
+  modForm.classList.add("hide");
 });
 
 cancelBtn.addEventListener("click", function (e) {
@@ -36,12 +37,52 @@ const fetchNotes = async () => {
     });
 };
 
+// function to Show Previous Notes
+
+function showNotes(d) {
+  if (d.data.length > 0) {
+    d.data.forEach((d) => {
+      const notePost = document.createElement("div");
+      notePost.classList.add("added-note");
+      notePost.innerHTML = `
+      <h4>${d.title}</h4>
+      <p>${d.description}</p>
+      <button class="delete">Delete</button>
+      <button class="modify">Modify</button>
+      `;
+      nextNote.appendChild(notePost);
+
+      deleteNotes(notePost, d);
+      modifyNotes(notePost, d);
+    });
+  } else {
+    nextNote.innerHTML = `Ops! Your Notes Are Empty!!!! <br>
+    WRITE A NEW NODE`;
+    nextNote.classList.add("empty-note");
+  }
+}
+
+// Function For calling Alert
+
+function alertPing() {
+  setTimeout(() => {
+    alertMsg.style.transform = "translateX(-300%)";
+    alertMsg.style.transition = "all .5s ease-in";
+  }, 2000);
+  setTimeout(() => {
+    window.location.reload();
+  }, 3000);
+}
+
+// Function For Saving New Note
+
 subNote.addEventListener("click", (e) => {
   if (
     form.title.value.trim().length > 0 &&
     form.description.value.trim().length > 0
   ) {
     e.preventDefault();
+    subNote.disabled = true;
     fetch("http://localhost:5000/create", {
       method: "POST",
       headers: {
@@ -51,13 +92,25 @@ subNote.addEventListener("click", (e) => {
         title: form.title.value,
         description: form.description.value,
       }),
-    }).then((res) => {
-      console.log("data potsed", res);
-      subNote.textContent = "Submitted";
-      form.title.value = "";
-      form.description.value = "";
-      window.location.reload();
-    });
+    })
+      .then((res) => {
+        console.log("data potsed", res);
+        form.title.value = "";
+        form.description.value = "";
+
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data.message);
+        alertMsg.classList.toggle("hide");
+        alertMsg.classList.toggle("add-alert");
+        alertMsg.textContent = data.message;
+        nextNote.innerHTML = "";
+        selectForm.classList.toggle("hide");
+        alertPing();
+
+        // window.location.reload();
+      });
   } else {
     alert("Fill the form Correctly");
   }
@@ -76,10 +129,26 @@ function deleteNotes(note, data) {
       body: JSON.stringify({
         id: data._id,
       }),
-    }).then((res) => {
-      console.log("data deleted", res);
-      window.location.reload();
-    });
+    })
+      .then((res) => {
+        console.log("data deleted", res);
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data.message);
+        alertMsg.classList.toggle("hide");
+        alertMsg.classList.toggle("del-alert");
+        alertMsg.textContent = data.message;
+        nextNote.innerHTML = "";
+        alertPing();
+        // setTimeout(() => {
+        //   alertMsg.style.transform = "translateX(-300%)";
+        //   alertMsg.style.transition = "all .5s ease-in";
+        // }, 2000);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 3000);
+      });
   });
 }
 
@@ -91,7 +160,6 @@ function modifyNotes(note, data) {
   modifybtn.addEventListener("click", function () {
     selectForm.classList.add("hide");
     modForm.classList.toggle("hide");
-
     newform.Newtitle.value = data.title;
     newform.Newdescription.value = data.description;
 
@@ -113,35 +181,27 @@ function modifyNotes(note, data) {
             title: newform.Newtitle.value,
             description: newform.Newdescription.value,
           }),
-        }).then((res) => {
-          console.log("data potsed", res);
-          modifybtn.textContent = "Submitted";
-          newform.Newtitle.value = "";
-          newform.Newdescription.value = "";
-          window.location.reload();
-        });
+        })
+          .then((res) => {
+            console.log("data potsed", res);
+            modifybtn.textContent = "Submitted";
+            newform.Newtitle.value = "";
+            newform.Newdescription.value = "";
+            modForm.classList.toggle("hide");
+            return res.json();
+          })
+          .then((data) => {
+            console.log(data.message);
+            alertMsg.classList.toggle("hide");
+            alertMsg.classList.toggle("mod-alert");
+            alertMsg.textContent = data.message;
+            nextNote.innerHTML = "";
+            alertPing();
+          });
       } else {
         alert("Fill the form Correctly");
       }
     });
-  });
-}
-
-// function to Show Previous Notes
-
-function showNotes(d) {
-  d.data.forEach((d) => {
-    const notePost = document.createElement("div");
-    notePost.classList.add("added-note");
-    notePost.innerHTML = `
-    <h4>${d.title}</h4>
-    <p>${d.description}</p>
-    <button class="delete">Delete</button>
-    <button class="modify">Modify</button>
-    `;
-    nextNote.appendChild(notePost);
-    deleteNotes(notePost, d);
-    modifyNotes(notePost, d);
   });
 }
 

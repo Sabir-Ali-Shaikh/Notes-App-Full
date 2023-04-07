@@ -10,7 +10,7 @@ export const addNoteData = async (req, res) => {
       res.send(
         JSON.stringify({
           status: 201,
-          message: "Data Posted",
+          message: "Node Added Sucessfully",
           data: created,
         })
       );
@@ -64,7 +64,7 @@ export const delNoteData = async (req, res) => {
         res.send(
           JSON.stringify({
             status: 200,
-            message: "Document Deleted ",
+            message: "Selected Note Deleted Sucessfully ",
             data: deleted,
           })
         );
@@ -102,7 +102,7 @@ export const modifyNote = async (req, res) => {
       res.send(
         JSON.stringify({
           status: 200,
-          message: "Document Found",
+          message: "Modified data Saved",
           data: data,
         })
       );
