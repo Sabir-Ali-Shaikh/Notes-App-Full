@@ -15,20 +15,30 @@ body {
 }
 
 .add-alert {
-  color: green;
-  border: green;
+  /* color: green;
+  border: green; */
+  color: rgb(255, 196, 0);
+  border: rgb(255, 196, 0);
 }
 .mod-alert {
   color: rgb(255, 196, 0);
   border: rgb(255, 196, 0);
 }
 .del-alert {
-  color: red;
-  border: red;
+  /* color: red;
+  border: red; */
+  color: rgb(255, 196, 0);
+  border: rgb(255, 196, 0);
 }
 
 .succes-msg {
-  background-color: #ffffff;
+  /* background-color: #ffffff; */
+  background-image: radial-gradient(
+    circle 926px at 0.4% 2%,
+    #177e89 30%,
+    rgba(243, 170, 81, 1) 10.2%,
+    #177e89 0.2%
+  );
   transform: translateX(-20%);
   top: 20px;
   height: 5rem;
