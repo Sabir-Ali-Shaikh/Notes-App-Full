@@ -17,7 +17,14 @@ body {
 .confim-delete {
   height: 10rem;
   width: 30%;
-  background-color: white;
+  background-image: radial-gradient(
+    circle 926px at 0.4% 2%,
+    #177e89 30%,
+    rgba(243, 170, 81, 1) 10.2%,
+    #177e89 0.2%
+  );
+  color: rgb(255, 196, 0);
+  border: rgb(255, 196, 0);
   padding: 1.7rem;
 }
 

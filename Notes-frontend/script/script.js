@@ -11,6 +11,8 @@ let delConfirm = document.querySelector(".del-confirm");
 let delPopUp = document.querySelector(".confim-delete");
 let delpopCancle = document.querySelector(".del-Cancel");
 
+const base_URL = "http://localhost:5000";
+
 newBtn.addEventListener("click", function () {
   modForm.classList.add("hide");
   selectForm.classList.toggle("hide");
@@ -91,32 +93,29 @@ subNote.addEventListener("click", (e) => {
   ) {
     e.preventDefault();
     subNote.disabled = true;
-    fetch("http://localhost:5000/create", {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({
+    apifetch(
+      "POST",
+      `${base_URL}/create`,
+      JSON.stringify({
         title: form.title.value,
         description: form.description.value,
       }),
-    })
-      .then((res) => {
-        console.log("data potsed", res);
-        form.title.value = "";
-        form.description.value = "";
-
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data.message);
-        alertMsg.classList.toggle("hide");
-        alertMsg.classList.toggle("add-alert");
-        alertMsg.textContent = data.message;
-        nextNote.innerHTML = "";
-        selectForm.classList.toggle("hide");
-        alertPing();
-      });
+      (res) => {
+        res.json().then((data) => {
+          form.title.value = "";
+          form.description.value = "";
+          alertMsg.classList.toggle("hide");
+          alertMsg.classList.toggle("add-alert");
+          alertMsg.textContent = data.message;
+          nextNote.innerHTML = "";
+          selectForm.classList.toggle("hide");
+          alertPing();
+        });
+      },
+      (err) => {
+        alert(err);
+      }
+    );
   } else {
     alert("Fill the form Correctly");
   }
@@ -130,28 +129,27 @@ function deleteNotes(note, data) {
     delPopUp.classList.toggle("hide");
     delConfirm.addEventListener("click", (e) => {
       console.log(e.target.classList);
-      fetch("http://localhost:5000/delete", {
-        method: "DELETE",
-        headers: {
-          "Content-type": "application/json; charset=UTF-8",
-        },
-        body: JSON.stringify({
+      apifetch(
+        "DELETE",
+        `${base_URL}/delete`,
+        JSON.stringify({
           id: data._id,
         }),
-      })
-        .then((res) => {
-          console.log("data deleted", res);
-          return res.json();
-        })
-        .then((data) => {
-          delPopUp.classList.add("hide");
-          console.log(data.message);
-          alertMsg.classList.toggle("hide");
-          alertMsg.classList.toggle("del-alert");
-          alertMsg.textContent = data.message;
-          nextNote.innerHTML = "";
-          alertPing();
-        });
+        (res) => {
+          res.json().then((data) => {
+            console.log(data);
+            delPopUp.classList.add("hide");
+            alertMsg.classList.toggle("hide");
+            alertMsg.classList.toggle("del-alert");
+            alertMsg.textContent = data.message;
+            nextNote.innerHTML = "";
+            alertPing();
+          });
+        },
+        (err) => {
+          alert(err);
+        }
+      );
     });
   });
 }
@@ -175,33 +173,33 @@ function modifyNotes(note, data) {
         newform.Newdescription.value.trim().length > 0
       ) {
         e.preventDefault();
-        fetch("http://localhost:5000/modify", {
-          method: "PUT",
-          headers: {
-            "Content-type": "application/json; charset=UTF-8",
-          },
-          body: JSON.stringify({
+        apifetch(
+          "PUT",
+          `${base_URL}/modify`,
+          JSON.stringify({
             id: data._id,
             title: newform.Newtitle.value,
             description: newform.Newdescription.value,
           }),
-        })
-          .then((res) => {
-            console.log("data potsed", res);
-            modifybtn.textContent = "Submitted";
-            newform.Newtitle.value = "";
-            newform.Newdescription.value = "";
-            modForm.classList.toggle("hide");
-            return res.json();
-          })
-          .then((data) => {
-            console.log(data.message);
-            alertMsg.classList.toggle("hide");
-            alertMsg.classList.toggle("mod-alert");
-            alertMsg.textContent = data.message;
-            nextNote.innerHTML = "";
-            alertPing();
-          });
+          (res) => {
+            res.json().then((data) => {
+              console.log(data);
+              modifybtn.textContent = "Submitted";
+              newform.Newtitle.value = "";
+              newform.Newdescription.value = "";
+              modForm.classList.toggle("hide");
+              console.log(data.message);
+              alertMsg.classList.toggle("hide");
+              alertMsg.classList.toggle("mod-alert");
+              alertMsg.textContent = data.message;
+              nextNote.innerHTML = "";
+              alertPing();
+            });
+          },
+          (err) => {
+            alert(err);
+          }
+        );
       } else {
         alert("Fill the form Correctly");
       }
@@ -212,3 +210,20 @@ function modifyNotes(note, data) {
 (() => {
   fetchNotes();
 })();
+
+async function apifetch(method, url, data, successCallBack, errorCallBack) {
+  const res = await fetch(url, {
+    method,
+    headers: {
+      "Content-type": "application/json; charste=UTF-8",
+    },
+    body: data,
+  })
+    .then((res) => {
+      console.log(successCallBack);
+      successCallBack(res);
+    })
+    .catch((err) => {
+      errorCallBack(res);
+    });
+}

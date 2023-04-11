@@ -1,6 +1,7 @@
 import noteSchema from "./schema/schema.js";
+import { HttpError } from "./customError.js";
 
-export const addNoteData = async (req, res) => {
+export const addNoteData = async (req, res, next) => {
   try {
     const { title, description } = req.body;
     const created = await noteSchema.create({ title, description });
@@ -15,21 +16,24 @@ export const addNoteData = async (req, res) => {
         })
       );
     } else {
-      res.send(
-        JSON.stringify({
-          status: 404,
-          message: "Document Not created",
-          data: null,
-        })
-      );
+      next(new HttpError("Document Not created", 404, data));
+      // res.send(
+      //   JSON.stringify({
+      //     status: 404,
+      //     message: "Document Not created",
+      //     data: null,
+      //   })
+      // );
     }
   } catch (error) {
-    console.error(error);
+    next(error);
   }
 };
 
-export const getNoteData = async (req, res) => {
+export const getNoteData = async (req, res, next) => {
   try {
+    // const data = null;
+
     const data = await noteSchema.find();
     if (data) {
       res.send(
@@ -40,20 +44,21 @@ export const getNoteData = async (req, res) => {
         })
       );
     } else {
-      res.send(
-        JSON.stringify({
-          status: 204,
-          message: "No Data was Found in Database",
-          data: null,
-        })
-      );
+      next(new HttpError("No Data was Found in Database", 404, null));
+      // res.send(
+      //   JSON.stringify({
+      //     status: 204,
+      //     message: "No Data was Found in Database",
+      //     data: null,
+      //   })
+      // );
     }
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
-export const delNoteData = async (req, res) => {
+export const delNoteData = async (req, res, next) => {
   try {
     const { id } = req.body;
     const data = await noteSchema.findById(id);
@@ -70,20 +75,21 @@ export const delNoteData = async (req, res) => {
         );
       }
     } else {
-      res.send(
-        JSON.stringify({
-          status: 404,
-          message: "Document not found  ",
-          data: null,
-        })
-      );
+      next(new HttpError("Document Not Found", 404, data));
+      // res.send(
+      //   JSON.stringify({
+      //     status: 404,
+      //     message: "Document not found  ",
+      //     data: null,
+      //   })
+      // );
     }
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
 
-export const modifyNote = async (req, res) => {
+export const modifyNote = async (req, res, next) => {
   try {
     const { id, title, description } = req.body;
     console.log(id);
@@ -107,15 +113,16 @@ export const modifyNote = async (req, res) => {
         })
       );
     } else {
-      res.send(
-        JSON.stringify({
-          status: 404,
-          message: "Document not  Found",
-          data: null,
-        })
-      );
+      next(new HttpError("Document Not Found", 404, data));
+      // res.send(
+      //   JSON.stringify({
+      //     status: 404,
+      //     message: "Document not  Found",
+      //     data: null,
+      //   })
+      // );
     }
   } catch (err) {
-    console.log(err);
+    next(err);
   }
 };
