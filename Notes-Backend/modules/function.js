@@ -17,13 +17,6 @@ export const addNoteData = async (req, res, next) => {
       );
     } else {
       next(new HttpError("Document Not created", 404, data));
-      // res.send(
-      //   JSON.stringify({
-      //     status: 404,
-      //     message: "Document Not created",
-      //     data: null,
-      //   })
-      // );
     }
   } catch (error) {
     next(error);
@@ -45,13 +38,7 @@ export const getNoteData = async (req, res, next) => {
       );
     } else {
       next(new HttpError("No Data was Found in Database", 404, null));
-      // res.send(
-      //   JSON.stringify({
-      //     status: 204,
-      //     message: "No Data was Found in Database",
-      //     data: null,
-      //   })
-      // );
+    
     }
   } catch (err) {
     next(err);
@@ -76,13 +63,7 @@ export const delNoteData = async (req, res, next) => {
       }
     } else {
       next(new HttpError("Document Not Found", 404, data));
-      // res.send(
-      //   JSON.stringify({
-      //     status: 404,
-      //     message: "Document not found  ",
-      //     data: null,
-      //   })
-      // );
+
     }
   } catch (err) {
     next(err);
@@ -114,13 +95,7 @@ export const modifyNote = async (req, res, next) => {
       );
     } else {
       next(new HttpError("Document Not Found", 404, data));
-      // res.send(
-      //   JSON.stringify({
-      //     status: 404,
-      //     message: "Document not  Found",
-      //     data: null,
-      //   })
-      // );
+   
     }
   } catch (err) {
     next(err);

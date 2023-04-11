@@ -19,7 +19,6 @@ app.use((req, res, next) => {
 app.use((error, req, res, next) => {
   if (error) {
     res.status(400).send({
-      // status: 404,
       data: null,
       message: error.message,
       success: false,
