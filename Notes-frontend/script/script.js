@@ -13,6 +13,23 @@ let delpopCancle = document.querySelector(".del-Cancel");
 
 const base_URL = "http://localhost:5000";
 
+async function apifetch(method, url, data, successCallBack, errorCallBack) {
+  const res = await fetch(url, {
+    method,
+    headers: {
+      "Content-type": "application/json; charste=UTF-8",
+    },
+    body: data,
+  })
+    .then((res) => {
+      console.log(successCallBack);
+      successCallBack(res);
+    })
+    .catch((err) => {
+      errorCallBack(err);
+    });
+}
+
 newBtn.addEventListener("click", function () {
   modForm.classList.add("hide");
   selectForm.classList.toggle("hide");
@@ -210,20 +227,3 @@ function modifyNotes(note, data) {
 (() => {
   fetchNotes();
 })();
-
-async function apifetch(method, url, data, successCallBack, errorCallBack) {
-  const res = await fetch(url, {
-    method,
-    headers: {
-      "Content-type": "application/json; charste=UTF-8",
-    },
-    body: data,
-  })
-    .then((res) => {
-      console.log(successCallBack);
-      successCallBack(res);
-    })
-    .catch((err) => {
-      errorCallBack(res);
-    });
-}
