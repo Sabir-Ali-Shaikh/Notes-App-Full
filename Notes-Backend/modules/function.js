@@ -25,7 +25,6 @@ export const addNoteData = async (req, res, next) => {
 
 export const getNoteData = async (req, res, next) => {
   try {
-    // const data = null;
 
     const data = await noteSchema.find();
     if (data) {
