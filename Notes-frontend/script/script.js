@@ -157,9 +157,9 @@ function deleteNotes(note, data) {
 // Function To Modify Notes
 
 function modifyNotes(note, data) {
-  let modifybtn = note.querySelector(".modify");
+  let modifyBtn = note.querySelector(".modify");
 
-  modifybtn.addEventListener("click", function () {
+  modifyBtn.addEventListener("click", function () {
     selectForm.classList.add("hide");
     modForm.classList.toggle("hide");
     newform.Newtitle.value = data.title;
@@ -184,7 +184,7 @@ function modifyNotes(note, data) {
           (res) => {
             res.json().then((data) => {
               console.log(data);
-              modifybtn.textContent = "Submitted";
+              modifyBtn.textContent = "Submitted";
               newform.Newtitle.value = "";
               newform.Newdescription.value = "";
               modForm.classList.toggle("hide");

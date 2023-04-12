@@ -29,8 +29,6 @@ body {
 }
 
 .add-alert {
-  /* color: green;
-  border: green; */
   color: rgb(255, 196, 0);
   border: rgb(255, 196, 0);
 }
@@ -39,14 +37,11 @@ body {
   border: rgb(255, 196, 0);
 }
 .del-alert {
-  /* color: red;
-  border: red; */
   color: rgb(255, 196, 0);
   border: rgb(255, 196, 0);
 }
 
 .succes-msg {
-  /* background-color: #ffffff; */
   background-image: radial-gradient(
     circle 926px at 0.4% 2%,
     #177e89 30%,
@@ -81,8 +76,6 @@ body {
 
 .icon {
   width: 10%;
-  /* filter: brightness(0) saturate(100%) invert(100%) sepia(0%) saturate(0%)
-    hue-rotate(93deg) brightness(103%) contrast(103%); */
 }
 
 .prev-notes {
@@ -143,7 +136,7 @@ body {
   text-align: start !important;
   overflow: scroll !important;
   height: 5vh;
-  /* font-size: 1.5rem !important; */
+
 }
 
 .prev-notes div h4 {
@@ -180,7 +173,6 @@ body {
   }
   .succes-msg {
     transform: translateX(-90%);
-    /* left: 30%; */
     width: 30rem;
     margin-top: 1.3rem;
     animation: successtransform 1s 1;
