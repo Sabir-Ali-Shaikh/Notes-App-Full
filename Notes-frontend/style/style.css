@@ -134,7 +134,7 @@ body {
 
 .prev-notes div p {
   text-align: start !important;
-  overflow: scroll !important;
+  overflow: hidden !important;
   height: 5vh;
 
 }
@@ -191,7 +191,7 @@ body {
 
   .prev-notes div p {
     text-align: start;
-    overflow: scroll;
+    overflow: hidden;
     width: 30%;
     height: 15vh;
   }
@@ -204,7 +204,7 @@ body {
 
   .prev-notes div h4 {
     text-align: start;
-    overflow: scroll;
+    overflow: hidden;
     width: 30%;
   }
 
