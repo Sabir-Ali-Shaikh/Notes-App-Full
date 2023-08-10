@@ -2,10 +2,10 @@
   "name": "notes-app",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "node servers.js"
+    "start": "node main.js"
   },
   "keywords": [],
   "author": "",
