@@ -1,10 +1,10 @@
-import { config } from "../config.js";
 import mongoose from "mongoose";
 
 export async function dataBaseConnect() {
+  
   await mongoose
     .connect(
-      `mongodb+srv://${config.userName}:${config.pass}@cluster0.wkoexdd.mongodb.net/${config.dbName}?retryWrites=true&w=majority`,
+      `mongodb+srv://sa80651:dIURTkCYXdmjpShu@notes.a5vf7w5.mongodb.net/notes?retryWrites=true&w=majority`,
       {
         useNewUrlParser: true,
       }
